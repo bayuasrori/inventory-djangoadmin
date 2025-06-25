@@ -52,7 +52,7 @@ python manage.py runserver
 
 ## Usage
 
-1. Access the admin interface at http://localhost:8000/admin/
+1. Access the admin interface at http://localhost:8000/
 2. Log in with your superuser credentials
 3. Manage warehouses, products, and stock movements
 
