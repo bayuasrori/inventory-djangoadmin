@@ -1,9 +1,9 @@
-from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from unfold.admin import TabularInline
 from ..models import Stock, StockMovementItem, Stockard
 
-class StockInline(admin.TabularInline):
+class StockInline(TabularInline):
     model = Stock
     extra = 1
     fields = ('product', 'quantity')
@@ -14,7 +14,7 @@ class StockInline(admin.TabularInline):
         qs = super().get_queryset(request)
         return qs.select_related('product')
 
-class StockMovementItemInline(admin.TabularInline):
+class StockMovementItemInline(TabularInline):
     model = StockMovementItem
     extra = 1
     fields = (

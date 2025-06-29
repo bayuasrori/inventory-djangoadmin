@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 from .inlines import StockInline, StockMovementItemInline
+from unfold.admin import ModelAdmin
 from ..models import Warehouse, Stockard, Product, Stock, StockMovement
 
 @admin.register(StockMovement)
-class StockMovementAdmin(admin.ModelAdmin):
+class StockMovementAdmin(ModelAdmin):
     ordering = ('-created_at',)
     fieldsets = (
         (None, {
@@ -47,7 +48,7 @@ class StockMovementAdmin(admin.ModelAdmin):
     inlines = [StockMovementItemInline]
 
 @admin.register(Warehouse)
-class WarehouseAdmin(admin.ModelAdmin):
+class WarehouseAdmin(ModelAdmin):
     list_display = ('name', 'created_at')
     search_fields = ('name', 'description')
     ordering = ('name',)
@@ -63,7 +64,7 @@ class WarehouseAdmin(admin.ModelAdmin):
     readonly_fields = ('created_at',)
 
 @admin.register(Stockard)
-class StockardAdmin(admin.ModelAdmin):
+class StockardAdmin(ModelAdmin):
     list_display = ('name', 'warehouse', 'created_at')
     list_filter = ('warehouse',)
     search_fields = ('name', 'description', 'warehouse__name')
@@ -81,7 +82,7 @@ class StockardAdmin(admin.ModelAdmin):
     inlines = [StockInline]
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(ModelAdmin):
     list_display = ('name', 'created_at')
     search_fields = ('name', 'description')
     ordering = ('name',)
@@ -98,7 +99,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [StockInline]
 
 @admin.register(Stock)
-class StockAdmin(admin.ModelAdmin):
+class StockAdmin(ModelAdmin):
     list_display = ('product', 'stockard', 'quantity', 'is_in_stock', 'created_at')
     list_filter = ('stockard__warehouse', 'stockard')
     search_fields = (

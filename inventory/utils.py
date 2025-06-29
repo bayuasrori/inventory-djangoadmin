@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.utils import timezone
+from .models import StockMovement
 
 def generate_reference_number():
     """
@@ -16,4 +17,14 @@ def generate_reference_number():
     timestamp = now.timestamp()
     unique_part = str(int(timestamp * 1000))[-4:]
     
-    return f'INV-{date_part}-{unique_part}'
+    no_ref =  f'INV-{date_part}-{unique_part}'
+    
+    sm = StockMovement.objects.filter(reference_number=no_ref).first()
+    
+    if sm is not None:
+        unique_part = str(int(timestamp * 1000))[-4:]
+    
+        no_ref =  f'INV-{date_part}-{unique_part}'
+    
+    
+    return no_ref
